@@ -4,3 +4,6 @@ main.o:main.c
 
 exe: main.o
 	$(CC) -o exe main.o -lm
+
+clean:
+	rm *.o exe
