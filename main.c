@@ -32,7 +32,7 @@ int main() {
     clr_scr();
     while(true) {
         memset(output, ' ', SCR_HEIGHT*SCR_WIDTH);
-        memset(z_buff,'\0',7040);
+        memset(z_buff, '\0', SCR_HEIGHT*SCR_WIDTH*4);
         for(j=0; j < 6.28; j += 0.07) {
             for(i=0; i < 6.28; i += 0.02) {
                 float sini = sin(i);
