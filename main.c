@@ -4,9 +4,10 @@
 #include <string.h>
 #include <unistd.h>
 
+#define PI M_PI
 #define SCR_WIDTH 80
 #define SCR_HEIGHT 22
-#define DELAY 3e4
+#define DELAY 3e3
 
 const char* luminance = ".,-~:;=!*#$@";
 
@@ -33,8 +34,9 @@ int main() {
     while(true) {
         memset(output, ' ', SCR_HEIGHT*SCR_WIDTH);
         memset(z_buff, '\0', SCR_HEIGHT*SCR_WIDTH*4);
-        for(j=0; j < 6.28; j += 0.07) {
-            for(i=0; i < 6.28; i += 0.02) {
+        for(j=0; j < 2*PI; j += 0.07) {
+            for(i=0; i < 2*PI; i += 0.02) {
+                printf("Computing");
                 float sini = sin(i);
                 float cosj = cos(j);
                 float sinA = sin(A);
@@ -59,11 +61,11 @@ int main() {
 
         move_curs_to_home();
         for(int k = 0; k < SCR_WIDTH*SCR_HEIGHT; k++) {
+            usleep(DELAY);
             putchar(k % SCR_WIDTH ? output[k] : '\n');
-            A += 0.00004;
-            B += 0.00002;
+            A += 4e-5;
+            B += 2e-5;
         }
-        usleep(DELAY);
     }
     return 0;
 }
