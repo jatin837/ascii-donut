@@ -1,5 +1,6 @@
+CC := clang
 main.o:main.c
-	clang -o main.o -c main.c
+	$(CC) -o main.o -c main.c
 
 exe: main.o
-	clang -o exe main.o -lm
+	$(CC) -o exe main.o -lm
