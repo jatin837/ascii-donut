@@ -19,8 +19,9 @@ int flatten(int x, int y){
 void clr_scr(void){
     printf("\033[2J");
 }
+
 void move_curs_to_home(void){
-    printf("\x1b[H");
+    printf("\033[H");
 }
 
 int main() {
@@ -30,20 +31,20 @@ int main() {
     char output[SCR_HEIGHT*SCR_WIDTH];
     clr_scr();
     while(true) {
-        memset(output,32,1760);
-        memset(z_buff,0,7040);
+        memset(output, ' ', SCR_HEIGHT*SCR_WIDTH);
+        memset(z_buff,'\0',7040);
         for(j=0; j < 6.28; j += 0.07) {
             for(i=0; i < 6.28; i += 0.02) {
-                float sini = sin(i); //c
-                float cosj = cos(j); //d
-                float sinA = sin(A); //e
-                float sinj = sin(j); //f
-                float cosA = cos(A); //g
+                float sini = sin(i);
+                float cosj = cos(j);
+                float sinA = sin(A);
+                float sinj = sin(j);
+                float cosA = cos(A);
                 float h = cosj + 2;  
                 float D = 1 / (sini * h * sinA + sinj * cosA + 5);
-                float cosi = cos(i); //l
-                float cosB = cos(B);   //m
-                float sinB = sin(B);   //n
+                float cosi = cos(i);
+                float cosB = cos(B);
+                float sinB = sin(B);
                 float t = sini * h * cosA - sinj * sinA;
                 int x = 40 + 30 * D * (cosi * h * cosB - t * sinB);
                 int y= 12 + 15 * D * (cosi * h * sinB + t * cosB);
@@ -55,6 +56,7 @@ int main() {
                 }
             }
         }
+
         move_curs_to_home();
         for(int k = 0; k < SCR_WIDTH*SCR_HEIGHT; k++) {
             putchar(k % SCR_WIDTH ? output[k] : '\n');
